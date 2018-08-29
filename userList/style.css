@@ -1,0 +1,19 @@
+body{
+    background-color: #fff;
+}
+.row .col-lg-2{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 220px;
+}
+.margin-top{
+    margin-top: 1em;
+}
+.border-bottom{
+    border-bottom: 1px solid #ddd;
+}
+.hover:hover{
+    background-color: #eee;
+    transition: 0.5s;
+}

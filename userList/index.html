@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html ng-app="app">
+
+<head>
+    <title>User app</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body ng-controller="page" class="container-fluid">
+    <div class="row" style="margin-top: 2em;">
+        <div class="col-lg-12">
+            <div class="col-lg-2">
+                <label>Name</label>
+            </div>
+            <div class="col-lg-2">
+                <label>UserName</label>
+            </div>
+            <div class="col-lg-2">
+                <label>Email</label>
+            </div>
+            <div class="col-lg-2">
+                <label>Phone</label>
+            </div>
+            <div class="col-lg-2">
+                <label>City</label>
+            </div>
+            <div class="col-lg-2">
+                <label>Actions</label>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 hover" ng-repeat="user in users">
+    <div class="row margin-top border-bottom">
+        <div class="col-lg-2">
+            <span ng-if="!editView || indexOfEditUser != $index">{{user.name}}</span>
+            <input ng-if="editView && indexOfEditUser == $index" class="form-control checkSave" type="text" ng-model="user.name" ng-change="validate('edit')">
+        </div>
+        <div class="col-lg-2">
+            <span ng-if="!editView || indexOfEditUser != $index">{{user.username}}</span>
+            <input ng-if="editView && indexOfEditUser == $index" class="form-control checkSave" type="text" ng-model="user.username" ng-change="validate('edit')">
+        </div>
+        <div class="col-lg-2">
+            <span ng-if="!editView || indexOfEditUser != $index">{{user.email}}</span>
+            <input ng-if="editView && indexOfEditUser == $index" class="form-control checkSave" type="text" ng-model="user.email" ng-change="validate('edit')">
+        </div>
+        <div class="col-lg-2">
+            <span ng-if="!editView || indexOfEditUser != $index">{{user.phone}}</span>
+            <input ng-if="editView && indexOfEditUser == $index" class="form-control checkSave" type="text" ng-model="user.phone" ng-change="validate('edit')">
+        </div>
+        <div class="col-lg-2">
+            <span ng-if="!editView || indexOfEditUser != $index">{{user.address.city}}</span>
+            <input ng-if="editView && indexOfEditUser == $index" class="form-control checkSave" type="text" ng-model="user.address.city" ng-change="validate('edit')">
+        </div>
+        <div class="col-lg-2">
+           <button class="btn btn-sm btn-primary" ng-click="editUser($index)" ng-if="!editView || indexOfEditUser != $index" ng-disabled="validateSaveFields">Edit</button>
+           <button class="btn btn-sm btn-danger" ng-click="deleteUser(user.id)" ng-if="!editView || indexOfEditUser != $index">Delete</button>
+           <button class="btn btn-sm btn-success" ng-click="saveUser(user.id,user.name, user.username, user.email, user.phone,user.address.city)" ng-if="editView && indexOfEditUser == $index" ng-disabled="validateSaveFields">Save</button>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <button ng-if="!addingUser" class="margin-top btn btn-lg btn-warning" ng-click="addUser(); validate('new')" ng-disabled="validateSaveFields">Add user</button>
+    <button ng-if="addingUser" class="margin-top btn btn-lg btn-primary" ng-click="backFromAddView()" ng-disabled="validateSaveFields">Back</button>
+    <div class="margin-top row" ng-if="addingUser">
+        <div class="col-lg-2">
+            <label>Name</label>
+            <input class="form-control check" type="text" ng-model="newUser.name" ng-change="validate('new')">
+        </div>
+        <div class="col-lg-2">
+            <label>Username</label>
+            <input class="form-control check" type="text" ng-model="newUser.username" ng-change="validate('new')">
+        </div>
+        <div class="col-lg-2">
+            <label>Email</label>
+            <input class="form-control check" type="text" ng-model="newUser.email" ng-change="validate('new')">
+        </div>
+        <div class="col-lg-2">
+            <label>Phone</label>
+            <input class="form-control check" type="number" ng-model="newUser.phone" ng-change="validate('new')">
+        </div>
+        <div class="col-lg-2">
+            <label>City</label>
+            <input class="form-control check" type="text" ng-model="newUser.address.city" ng-change="validate('new')">
+        </div>
+        <div class="col-lg-2">
+            <button style="margin-top: 0.8em;" class="btn btn-lg btn-primary" ng-click="createUser()" ng-disabled="validateFields">Create</button>
+        </div>
+    </div>
+</div>
+
+
+
+   
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.2/angular.min.js"></script>
+    <script src="scripts/app.js"></script>
+</body>
+
+</html>
